@@ -1,0 +1,141 @@
+import Button from "@/components/padres/Button";
+import renderIcono from "@/components/icons/IconsBotonModal";
+import Span from "@/components/padres/Span";
+
+export default function BotonAceptarCancelar({
+  indice,
+  aceptar,
+  nombre,
+  campos,
+  icono,
+}) {
+  const todosLosCamposLlenos = Object.values(campos).every(
+    (valor) => typeof valor !== "undefined" && String(valor).trim() !== "",
+  );
+
+  const algunCampoLleno = Object.values(campos).some(
+    (valor) => typeof valor !== "undefined" && String(valor).trim() !== "",
+  );
+
+  const obtenerClase = () => {
+    switch (indice) {
+      case "crear":
+        return todosLosCamposLlenos
+          ? "cursor-pointer bg-[#2FA807] hover:bg-[#2ca802]"
+          : "cursor-not-allowed bg-[#99a1af]";
+      case "cancelar":
+        return "cursor-pointer bg-[#E61C45] hover:bg-[#e7113c]";
+      case "aceptar":
+        return todosLosCamposLlenos
+          ? "cursor-pointer bg-[#082158] hover:bg-[#00184b]"
+          : "cursor-not-allowed bg-[#99a1af]";
+      case "limpiar":
+        return algunCampoLleno
+          ? "cursor-pointer bg-[#eeee17] hover:bg-[#ebeb0a]"
+          : "cursor-not-allowed bg-[#99a1af]";
+      case "eliminar":
+        return algunCampoLleno
+          ? "cursor-pointer bg-[#E61C45]"
+          : "cursor-not-allowed bg-[#99a1af]";
+      case "cancelarEliminar":
+        return "cursor-pointer bg-[#2FA807]";
+      default:
+        return "cursor-not-allowed bg-[#99a1af]";
+    }
+  };
+
+  return (
+    <Button
+      disabled={
+        indice === "aceptar" || indice === "crear"
+          ? !todosLosCamposLlenos
+          : indice === "limpiar"
+            ? !algunCampoLleno
+            : false
+      }
+      type="button"
+      onClick={() => aceptar()}
+      className={`${obtenerClase()} w-full text-[#ffffff] font-semibold py-2 px-4 rounded-md shadow-md transition-transform transform hover:scale-105 flex items-center justify-center gap-2`}
+    >
+      {renderIcono(icono)}
+      <Span className="hidden sm:inline">{nombre}</Span>
+    </Button>
+  );
+}
+
+/** 
+import Button from "@/components/padres/Button";
+
+export default function BotonAceptarCancelar({
+  indice,
+  aceptar,
+  nombre,
+  campos,
+}) {
+  const todosLosCamposLlenos = Object.values(campos).every(
+    (valor) => typeof valor !== "undefined" && String(valor).trim() !== "",
+  );
+
+  const algunCampoLleno = Object.values(campos).some(
+    (valor) => typeof valor !== "undefined" && String(valor).trim() !== "",
+  );
+
+  // Definir clases según el índice
+  const obtenerClase = () => {
+    switch (indice) {
+      case "crear":
+        return todosLosCamposLlenos
+          ? "cursor-pointer bg-[#2FA807] hover:bg-[#2ca802]"
+          : "cursor-not-allowed bg-[#99a1af]"; // Activo, verde
+      case "cancelar":
+        return "cursor-pointer bg-[#E61C45] hover:bg-[#e7113c]"; // Activo, rojo
+      case "aceptar":
+        return todosLosCamposLlenos
+          ? "cursor-pointer bg-[#082158] hover:bg-[#00184b]"
+          : "cursor-not-allowed bg-[#99a1af]"; // Azul/gris según estado
+      case "limpiar":
+        return algunCampoLleno
+          ? "cursor-pointer bg-[#eeee17] hover:bg-[#ebeb0a]"
+          : "cursor-not-allowed bg-[#99a1af]"; // Amarillo/gris según estado
+      case "eliminar":
+        return algunCampoLleno
+          ? "cursor-pointer bg-[#E61C45]"
+          : "cursor-not-allowed bg-[#99a1af]"; // Amarillo/gris según estado
+      case "cancelarEliminar":
+        return "cursor-pointer bg-[#2FA807]"; // Activo, rojo
+      default:
+        return "cursor-not-allowed bg-[#99a1af]"; // Estado por defecto
+    }
+  };
+
+  return (
+    <Button
+      disabled={
+        indice === "aceptar" || indice === "crear"
+          ? !todosLosCamposLlenos
+          : indice === "limpiar"
+            ? !algunCampoLleno
+            : false
+      }
+      type="button"
+      onClick={() => aceptar()}
+      className={`${obtenerClase()} w-full text-[#ffffff] font-semibold py-2 px-4 rounded-md shadow-md transition-transform transform hover:scale-105 flex items-center justify-center gap-2`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        width="24"
+        height="24"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="11"
+        className="text-[#ffffff] sm:hidden"
+      >
+        <path d="M173.9 439.4L7 272.5c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0L192 312.1 448.5 55.5c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L225.4 439.4c-9.4 9.4-24.6 9.4-33.9 0z" />
+      </svg>
+
+      <span className="hidden sm:inline">{nombre}</span>
+    </Button>
+  );
+}
+*/

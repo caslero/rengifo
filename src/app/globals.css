@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.degradado {
+  background-image: linear-gradient(to right, #3b82f6, #9333ea);
+}
+
+.fuente-arial-black {
+  font-family: "Arial Black", sans-serif;
+}
+
+.color-fondo {
+  background-color: #082158;
+}
+
+.borde-fondo {
+  border: 1px solid #082158;
+}
+
+/* globals.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.icono-filter {
+  filter: drop-shadow(1px 1px 10px #082158);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation-name: fadeInUp;
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+}
+
+.react-pdf__Page {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.react-pdf__Page__canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+@media (max-width: 640px) {
+  .react-pdf__Page {
+    width: 100% !important;
+  }
+}
