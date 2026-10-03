@@ -170,9 +170,9 @@ export default function UsuariosView() {
         validaciones={validaciones}
       />
       <SectionMain>
-        <SectionPrimary nombre={"Representación usuarios"}>
+        {/* <SectionPrimary nombre={"Representación usuarios"}>
           <LeyendaUsuarios />
-        </SectionPrimary>
+        </SectionPrimary> */}
 
         <SectionTertiary
           nombre={"Gestión usuarios"}

@@ -37,6 +37,9 @@ export async function GET() {
       where: {
         borrado: false,
       },
+      include: {
+        calle: true
+      }
     });
 
     // 4. Verifica si se obtuvieron resultados válidos

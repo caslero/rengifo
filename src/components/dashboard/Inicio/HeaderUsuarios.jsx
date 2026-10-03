@@ -70,8 +70,8 @@ export default function HeaderUsuarios({
             indice={5}
             titulo={
               screenSize.width >= 640
-                ? "Gestión Contraloria Municipio Zamora"
-                : "Gestión CMZ"
+                ? "Gestión Comunal Zamora"
+                : "Gestión Comuna"
             }
           />
         </Div>

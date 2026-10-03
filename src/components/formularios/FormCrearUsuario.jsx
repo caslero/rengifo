@@ -165,24 +165,6 @@ export default function FormCrearUsuario({
     }
   };
 
-
-
-  console.log({
-              cedula,
-              nombre,
-              nombreDos,
-              apellido,
-              apellidoDos,
-              correo,
-              claveUno,
-              claveDos,
-              idRol: idRol,
-              calleId,
-              autorizar,
-            });
-  
-
-
   return (
     <Formulario onSubmit={(e) => e.preventDefault()}>
       <DivScroll>
@@ -255,8 +237,6 @@ export default function FormCrearUsuario({
           seleccione={"Seleccione"}
           setNombre={setNombreRol}
         />
-
-
 
         <SelectOpcion
           idOpcion={calleId}

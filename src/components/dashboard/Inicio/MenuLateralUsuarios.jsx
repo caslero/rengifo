@@ -42,13 +42,13 @@ export default function MenuLateralUsuario({ abrirPanel, cambiarRuta, vista }) {
             <Div className="py-1 flex flex-col justify-center items-center">
               <Div className="flex flex-col items-center p-1 border border-[#ffffff] rounded-full">
                 <img
-                  className="w-full p-2 h-14"
-                  src="/img/logo_contraloria.png"
+                  className="w-full p-2 h-16"
+                  src="/img/logo_comuna.png"
                   alt="Logo en la barra lateral izquierda"
                 />
               </Div>
               <P className="text-[#ffffff] text-center fuente-arial-black text-xs shadow-lg">
-                Contraloria Municipio Zamora
+                Comuna Juan de Bolivar Villegas y Martinez
               </P>
             </Div>
 
@@ -81,7 +81,7 @@ export default function MenuLateralUsuario({ abrirPanel, cambiarRuta, vista }) {
                 </>
               )}
 
-              {usuarioActivo.rolId === 1 && (
+              {usuarioActivo.rolId === 2 && (
                 <>
                   <EnlacesBarraLateral
                     id_rol={usuarioActivo.rolId}

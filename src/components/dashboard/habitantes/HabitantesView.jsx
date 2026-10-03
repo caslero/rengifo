@@ -8,8 +8,8 @@ import SectionMain from "@/components/SectionMain";
 import SectionTertiary from "@/components/SectionTertiary";
 import FichaDetalles from "@/components/FichaDetalles";
 import ButtonToggleDetalles from "@/components/botones/ButtonToggleDetalles";
-import ListadoFamilias from "@/components/dashboard/familias/components/ListadoFamilias";
-import ModalFamilias from "@/components/dashboard/familias/components/ModalFamilias";
+import ListadoHabitantes from "@/components/dashboard/habitantes/components/ListadoHabitantes";
+import ModalHabitantes from "@/components/dashboard/habitantes/components/ModalHabitantes";
 import EstadoMsjVacio from "@/components/mensaje/EstadoMsjVacio";
 import Loader from "@/components/Loader";
 
@@ -17,29 +17,49 @@ import { filtrarOrdenar } from "@/utils/filtrarOrdenar";
 
 import { abrirModal } from "@/store/features/modal/slicesModal";
 import { fetchFamilias } from "@/store/features/familias/thunks/todasFamilias";
-import { fetchCalles } from "@/store/features/calles/thunks/todasCalles";
 
-export default function FamiliasView() {
+export default function HabitantesView() {
   const dispatch = useDispatch();
   const { familias, loading } = useSelector((state) => state.familias);
 
   useEffect(() => {
     dispatch(fetchFamilias());
-    dispatch(fetchCalles());
   }, [dispatch]);
 
-  const [nombreFamilia, setNombreFamilia] = useState("");
-  const [direccionFamilia, setDireccionFamilia] = useState("");
-  const [codigoFamilia, setCodigoFamilia] = useState("");
-  const [tipoVivienda, setTipoVivienda] = useState("");
-  const [numeroFamilia, setNumeroFamilia] = useState("");
-  const [idCalleFamilia, setIdCalleFamilia] = useState("");
-  const [discapacidadFamilia, setDiscapacidadFamilia] = useState(false);
-  const [detallesDiscapacidadFamilia, setDetallesDiscapacidadFamilia] =
-    useState("");
-  const [servicioAguaFamilia, setServicioAguaFamilia] = useState(false);
-  const [servicioLuzFamilia, setServicioLuzFamilia] = useState(false);
-  const [observacionFamilia, setObservacionFamilia] = useState("");
+  const [cedulaUsuario, setCedulaUsuario] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [nombreDosUsuario, setNombreDosUsuario] = useState("");
+  const [apellidoUsuario, setApellidoUsuario] = useState("");
+  const [apellidoDosUsuario, setApellidoDosUsuario] = useState("");
+
+  // Datos Personales y Contacto
+  const [fechaNacimientoUsuario, setFechaNacimientoUsuario] = useState(""); // Formato YYYY-MM-DD
+  const [generoUsuario, setGeneroUsuario] = useState(""); // "masculino", "femenino", etc.
+  const [telefonoUsuario, setTelefonoUsuario] = useState("");
+  const [correoUsuario, setCorreoUsuario] = useState("");
+
+  // Credenciales de Acceso
+  const [claveUnoUsuario, setClaveUnoUsuario] = useState("");
+  const [claveDosUsuario, setClaveDosUsuario] = useState("");
+
+  // Rol y Estado de Autorización
+  const [rolIdUsuario, setRolIdUsuario] = useState(""); // 1: Admin, 2: Líder, 3: Habitante
+  const [validadoUsuario, setValidadoUsuario] = useState(false); // 1 = Autorizado / True, 0 = No / False
+
+  // Relaciones Comunitarias
+  const [comunaIdUsuario, setComunaIdUsuario] = useState("");
+  const [calleIdUsuario, setCalleIdUsuario] = useState("");
+  const [familiaIdUsuario, setFamiliaIdUsuario] = useState(""); // Opcional (null si no aplica)
+
+  const [idRol, setIdRol] = useState("");
+  const [nombreRol, setNombreRol] = useState("");
+  const [idUsuario, setIdUsuario] = useState("");
+
+  const [validarCedulaUsuario, setValidarCedulaUsuario] = useState(false);
+  const [validarCorreoUsuario, setValidarCorreoUsuario] = useState(false);
+  const [validarNombreUsuario, setValidarNombreUsuario] = useState(false);
+  const [validarApellidoUsuario, setValidarApellidoUsuario] = useState(false);
+  const [validarClaveUsuario, setValidarClaveUsuario] = useState(false);
 
   const [idFamilia, setIdFamilia] = useState("");
 
@@ -47,7 +67,7 @@ export default function FamiliasView() {
 
   const [validarNombreFamilia, setValidarNombreFamilia] = useState(false);
 
-   const [nombreCalle, setNombreCalle] = useState("");
+  const [nombreCalle, setNombreCalle] = useState("");
 
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(25);
@@ -61,39 +81,56 @@ export default function FamiliasView() {
 
   const acciones = {
     setIdFamilia: setIdFamilia,
-    setIdCalle: setIdCalleFamilia,
     setNombreCalle: setNombreCalle,
-    setNombre: setNombreFamilia,
-    setCodigo: setCodigoFamilia,
-    setDireccion: setDireccionFamilia,
-    setTipoVivienda: setTipoVivienda,
-    setNumero: setNumeroFamilia,
-    setDiscapacidad: setDiscapacidadFamilia,
-    setDetallesDiscapacidad: setDetallesDiscapacidadFamilia,
-    setServicioAgua: setServicioAguaFamilia,
-    setServicioLuz: setServicioLuzFamilia,
-    setObservacion: setObservacionFamilia,
+    setValidarNombreFamilia: setValidarNombreFamilia,
+    setNombreUsuario: setNombreUsuario,
+    setNombreDosUsuario: setNombreDosUsuario,
+    setApellidoUsuario: setApellidoUsuario,
+    setApellidoDosUsuario: setApellidoDosUsuario,
+    setFechaNacimientoUsuario: setFechaNacimientoUsuario,
+    setGeneroUsuario: setGeneroUsuario,
+    setTelefonoUsuario: setTelefonoUsuario,
+    setCorreoUsuario: setCorreoUsuario,
+    setClaveUnoUsuario: setClaveUnoUsuario,
+    setClaveDosUsuario: setClaveDosUsuario,
+    setRolIdUsuario: setRolIdUsuario,
+    setValidadoUsuario: setValidadoUsuario,
+    setComunaIdUsuario: setComunaIdUsuario,
+    setCalleIdUsuario: setCalleIdUsuario,
+    setFamiliaIdUsuario: setFamiliaIdUsuario,
+    setIdRol: setIdRol,
+    setNombreRol: setNombreRol,
+    setIdUsuario: setIdUsuario,
   };
 
   const datosFamilias = {
     idFamilia: idFamilia,
-    idCalle: idCalleFamilia,
     nombreCalle: nombreCalle,
-    nombre: nombreFamilia,
-    codigo: codigoFamilia,
-    direccion: direccionFamilia,
-    tipoVivienda: tipoVivienda,
-    numero: numeroFamilia,
-    discapacidad: discapacidadFamilia,
-    detallesDiscapacidad: detallesDiscapacidadFamilia,
-    servicioAgua: servicioAguaFamilia,
-    servicioLuz: servicioLuzFamilia,
-    observacion: observacionFamilia,
+    nombreUsuario: nombreUsuario,
+    nombreDosUsuario: nombreDosUsuario,
+    apellidoUsuario: apellidoUsuario,
+    apellidoDosUsuario: apellidoDosUsuario,
+    fechaNacimientoUsuario: fechaNacimientoUsuario,
+    generoUsuario: generoUsuario,
+    telefonoUsuario: telefonoUsuario,
+    correoUsuario: correoUsuario,
+    claveUnoUsuario: claveUnoUsuario,
+    claveDosUsuario: claveDosUsuario,
+    rolIdUsuario: rolIdUsuario,
+    comunaIdUsuario: comunaIdUsuario,
+    calleIdUsuario: calleIdUsuario,
+    familiaIdUsuario: familiaIdUsuario,
   };
 
   const validaciones = {
     validarNombre: validarNombreFamilia,
+    validadoUsuario: validadoUsuario,
     setValidarNombre: setValidarNombreFamilia,
+    setValidarCedulaUsuario: setValidarCedulaUsuario,
+    setValidarCorreoUsuario: setValidarCorreoUsuario,
+    setValidarNombreUsuario: setValidarNombreUsuario,
+    setValidarApellidoUsuario: setValidarApellidoUsuario,
+    setValidarClaveUsuario: setValidarClaveUsuario,
   };
 
   const familiasFiltradasOrdenadas = useMemo(() => {
@@ -124,7 +161,7 @@ export default function FamiliasView() {
 
   return (
     <>
-      <ModalFamilias
+      <ModalHabitantes
         acciones={acciones}
         datosFamilias={datosFamilias}
         validaciones={validaciones}
@@ -168,7 +205,7 @@ export default function FamiliasView() {
                         />
 
                         {expanded === familia.id && (
-                          <ListadoFamilias
+                          <ListadoHabitantes
                             familia={familia}
                             editarFamilia={editarFamilia}
                           />

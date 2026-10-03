@@ -39,6 +39,7 @@ export default async function validarConsultarTodosRoles() {
     return retornarRespuestaFunciones("ok", "Validacion correcta", {
       id_usuario: validaciones.id_usuario,
       correo: validaciones.correo,
+      id_rol: validaciones.id_rol
     });
   } catch (error) {
     // 5. Manejo de errores inesperados.

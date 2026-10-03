@@ -12,6 +12,8 @@ import BotonAceptarCancelar from "@/components/botones/BotonAceptarCancelar";
 import BotonLimpiarCampos from "@/components/botones/BotonLimpiarCampos";
 
 import { abrirModal, cerrarModal } from "@/store/features/modal/slicesModal";
+import SelectOpcion from "../SelectOpcion";
+import { cambiarSeleccionRol } from "../dashboard/usuarios/funciones/cambiarSeleccionRol";
 
 function CampoTexto({ id, nombre, value, setValue, type = "text" }) {
   return (
@@ -60,6 +62,7 @@ export default function FormCrearFamilia({
   const {
     setIdCalle,
     setNombre,
+    setNombreCalle,
     setCodigo,
     setDireccion,
     setTipoVivienda,
@@ -74,6 +77,7 @@ export default function FormCrearFamilia({
   const {
     idCalle,
     nombre,
+    nombreCalle,
     codigo,
     direccion,
     tipoVivienda,
@@ -127,25 +131,17 @@ export default function FormCrearFamilia({
       className="flex flex-col"
     >
       <DivScroll>
-        <LabelInput htmlFor="idCalle" nombre="Calle">
-          <select
-            id="idCalle"
-            name="idCalle"
-            value={idCalle}
-            onChange={(event) =>
-              setIdCalle(event.target.value ? Number(event.target.value) : "")
-            }
-            className="block w-full rounded-md p-2 shadow-sm outline outline-1 outline-[#d1d5dc] transition-all hover:outline-[#082158] focus:outline-[#082158]"
-          >
-            <option value="">Selecciona una calle</option>
-            {calles.map((calle) => (
-              <option key={calle.id} value={calle.id}>
-                {calle.nombre}
-                {calle.numero ? ` - ${calle.numero}` : ""}
-              </option>
-            ))}
-          </select>
-        </LabelInput>
+        <SelectOpcion
+          idOpcion={idCalle}
+          nombre={"Calles"}
+          handleChange={(e) => {
+            cambiarSeleccionRol(e, setIdCalle);
+          }}
+          opciones={calles}
+          seleccione="Seleccione"
+          setNombre={setNombreCalle}
+          indice={0}
+        />
 
         <InputNombre
           value={nombre}

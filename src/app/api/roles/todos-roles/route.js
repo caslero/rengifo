@@ -33,9 +33,16 @@ export async function GET() {
     }
 
     // 3. Consulta todos los roles, excluyendo el rol con ID 1 y los marcados como borrados
+    // 1. Regla de negocio limpia y legible
+    const rolesAExcluir = validaciones.id_rol >= 3 ? [1, 2] : [3];
+
+    // 2. Consulta clara en Prisma
     const todosRoles = await prisma.role.findMany({
       where: {
         borrado: false,
+        id: {
+          notIn: rolesAExcluir,
+        },
       },
     });
 

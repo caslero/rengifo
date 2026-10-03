@@ -23,10 +23,13 @@ import registrarEventoSeguro from "@/libs/trigget"; // Función para registrar e
 export async function POST(request) {
   try {
     // 1. Obtiene los datos del cuerpo de la solicitud (request)
-    const { datos } = await request.json();
+    const datos = await request.json();
 
     // 2. Valida los datos recibidos utilizando el servicio 'validarCrearFamilia'
     const validaciones = await validarCrearFamilia(datos);
+
+    console.log(validaciones);
+    
 
     // 3. Condición de validación fallida
     if (validaciones.status === "error") {
@@ -60,10 +63,10 @@ export async function POST(request) {
         discapacidad: validaciones.discapacidad,
         detallesDiscapacidad: validaciones.detallesDiscapacidad,
         servicioAgua: validaciones.servicioAgua,
-        servicioLuz: validaciones.servicioLuz,
+        electricidad: validaciones.electricidad,
         observacion: validaciones.observacion,
         numero: validaciones.numero,
-        calle: { connect: calle },
+        calle: { connect: { id: 1 } },
       },
     });
 
@@ -122,5 +125,3 @@ export async function POST(request) {
     return generarRespuesta("error", "Error, interno (familias)", {}, 500);
   }
 }
-
-
